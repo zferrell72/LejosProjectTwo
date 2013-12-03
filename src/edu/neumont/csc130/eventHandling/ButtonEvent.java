@@ -1,9 +1,15 @@
 package edu.neumont.csc130.eventHandling;
 
-public class ButtonEvent {
+import java.util.EventObject;
+
+public class ButtonEvent extends EventObject {
 
 	
 //	public ButtonEvent(object source){
 //		super(source);
 //	}
+	
+	public ButtonEvent(Object source){
+		super(source);
+	}
 }

@@ -65,5 +65,10 @@ public class SlotMachine {
 //		display “JackPot” and coinsInPot
 //			let coinsInPot be EmptyPot;
 //		}
+//
+//
+//	returnCoin(){
+//      tell the CoinSlot to return the coin
+//  }
 
 }
