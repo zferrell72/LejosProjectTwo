@@ -83,26 +83,25 @@ public class SlotMachine {
 		}
 	}
 
-	   public void loseOperation(){
-	// have sound Controller play sadSound
-		   soundController.playSadSound();
-	 }
+	public void loseOperation() {
+		// have sound Controller play sadSound
+		soundController.playSadSound();
+	}
 
-	
-	   public void winOperation(){
+	public void winOperation(){
 	// have CoinLiberator releaseCoins();
 		   coinLiberator.releaseCoins();
 	// tell the sound controller to play fanfare
 		   soundController.playFanfare();
 	// display “JackPot” and coinsInPot
-		   displayController.displayMessage("JackPot!!!")
+		   displayController.displayMessage("JackPot!!!");
 	// let coinsInPot be EmptyPot;
 		   coinsInPot = EMPTYPOT;
 	 }
-	
-	   public void returnCoin(){
-	// tell the CoinSlot to return the coin
-		   coinSlot.ejectCoin();
-	 }
+
+	public void returnCoin() {
+		// tell the CoinSlot to return the coin
+		coinSlot.ejectCoin();
+	}
 
 }

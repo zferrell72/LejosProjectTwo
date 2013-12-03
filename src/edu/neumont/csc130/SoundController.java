@@ -2,11 +2,11 @@ package edu.neumont.csc130;
 
 public class SoundController {
 
-//	playFanfare{
-//		make sounds like a fanfare
-//	}
-//
-//	playSadSound{
-//		make lower tone sounds
-//	}
+	public void playFanfare() {
+		// make sounds like a fanfare
+	}
+
+	public void playSadSound() {
+		// make lower tone sounds
+	}
 }
