@@ -14,7 +14,9 @@ public class CoinReturner implements ButtonListener {
 	@Override
 	public void buttonPressed(ButtonEvent event) {
 		SlotMachine theMachine = (SlotMachine) event.getSource();
-		theMachine.returnCoin();
+		synchronized (theMachine) {
+			theMachine.returnCoin();			
+		}
 	}
 	
 }

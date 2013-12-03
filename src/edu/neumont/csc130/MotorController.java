@@ -40,10 +40,10 @@ public class MotorController {
 
 	public void releaseCoins() {
 		doorMotor.setPower(doorPower);
-		doorMotor.forward();
+		doorMotor.backward();
 		try {
 			Thread.sleep(1000);
-			doorMotor.backward();
+			doorMotor.forward();
 			Thread.sleep(1000);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -57,11 +57,13 @@ public class SlotMachine {
 		// fire the CoinReturn’s buttonPressed event
 	}
 
-	public void startTurn() {
+	public synchronized void startTurn() {
 		// increase coinsInPot by 1;
 		coinsInPot++;
+		coinSlot.eatCoin();
 		// if coinsInPot greater than MaxPot…
 		if (coinsInPot > MAXPOT) {
+			System.out.println("Broken if statement");
 			winOperation();
 		}
 		// else if coinsInPot less than or equal to MaxPot
@@ -70,9 +72,10 @@ public class SlotMachine {
 		}
 	}
 
-	public void gamble() {
+	public synchronized void gamble() {
 		// generate randomNum between 0-9
 		int randomNum = numGenerator.nextInt(10);
+		System.out.println(randomNum);
 		// if randomNum is 0 or 9…
 		if (randomNum == 0 || randomNum == 9) {
 			winOperation();
@@ -88,16 +91,16 @@ public class SlotMachine {
 		soundController.playSadSound();
 	}
 
-	public void winOperation(){
-	// have CoinLiberator releaseCoins();
-		   coinLiberator.releaseCoins();
-	// tell the sound controller to play fanfare
-		   soundController.playFanfare();
-	// display “JackPot” and coinsInPot
-		   displayController.displayMessage("JackPot!!!");
-	// let coinsInPot be EmptyPot;
-		   coinsInPot = EMPTYPOT;
-	 }
+	public void winOperation() {
+		// have CoinLiberator releaseCoins();
+		coinLiberator.releaseCoins();
+		// tell the sound controller to play fanfare
+		soundController.playFanfare();
+		// display “JackPot” and coinsInPot
+		displayController.displayMessage("JackPot!!!");
+		// let coinsInPot be EmptyPot;
+		coinsInPot = EMPTYPOT;
+	}
 
 	public void returnCoin() {
 		// tell the CoinSlot to return the coin

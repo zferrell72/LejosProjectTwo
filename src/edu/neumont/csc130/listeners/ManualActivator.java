@@ -14,6 +14,8 @@ public class ManualActivator implements ButtonListener {
 	@Override
 	public void buttonPressed(ButtonEvent event) {
 		SlotMachine theMachine = (SlotMachine) event.getSource();
-		theMachine.startTurn();
+		synchronized (theMachine) {
+			theMachine.startTurn();			
+		}
 	}
 }
