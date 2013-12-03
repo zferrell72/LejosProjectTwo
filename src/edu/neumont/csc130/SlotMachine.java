@@ -1,74 +1,108 @@
 package edu.neumont.csc130;
 
+import java.util.Random;
+
+import edu.neumont.csc130.eventHandling.ButtonEvent;
+import edu.neumont.csc130.listeners.CoinReturner;
+import edu.neumont.csc130.listeners.ManualActivator;
+
 public class SlotMachine {
 
+	// create new coinSlot;
+	private CoinSlot coinSlot = new CoinSlot();
+	// create new manualActivator
+	private ManualActivator manualActivator = new ManualActivator();
+	// create new CoinReturn
+	private CoinReturner coinReturner = new CoinReturner();
+	// create new soundController;
+	private SoundController soundController = new SoundController();
+	// create new CoinLiberator;
+	private CoinLiberator coinLiberator = new CoinLiberator();
+	private ButtonController buttonController = new ButtonController();
+	private DisplayController displayController = new DisplayController();
+	// create new static random number generator
+	public static Random numGenerator = new Random();
+	public static final int MAXPOT = 4;
+	public static final int EMPTYPOT = 0;
+	// let coinsInPot be EmptyPot;
+	private int coinsInPot = EMPTYPOT;
+	// let randomNum be -1;
+	private int randomNum = -1;
+
+	public void startSlotMachine() {
+		// while forever...
+		while (true) {
+			checkManualActivatorPressed();
+			checkCoinReturnPressed();
+		}
+	}
+
+	public synchronized void checkManualActivatorPressed() {
+		// Create a new button event with the slotMachine as the source
+		ButtonEvent theEvent = new ButtonEvent(this);
+		// if the manual activator has been pressed,
+		if (buttonController.manualActivatorPressed()) {
+			// fire the manualActivator’s buttonPressed event
+			manualActivator.buttonPressed(theEvent);
+		}
+	}
+
+	public synchronized void checkCoinReturnPressed() {
+		// Create a new button event with the slotMachine as the source
+		ButtonEvent theEvent = new ButtonEvent(this);
+		// if the coin return has been pressed
+		if (buttonController.coinReturnButtonPressed()) {
+			coinReturner.buttonPressed(theEvent);
+		}
+		// fire the CoinReturn’s buttonPressed event
+	}
+
+	public void startTurn() {
+		// increase coinsInPot by 1;
+		coinsInPot++;
+		// if coinsInPot greater than MaxPot…
+		if (coinsInPot > MAXPOT) {
+			winOperation();
+		}
+		// else if coinsInPot less than or equal to MaxPot
+		else {
+			gamble();
+		}
+	}
+
+	public void gamble() {
+		// generate randomNum between 0-9
+		int randomNum = numGenerator.nextInt(10);
+		// if randomNum is 0 or 9…
+		if (randomNum == 0 || randomNum == 9) {
+			winOperation();
+		}
+		// else if randomNum is not 0 or 9…
+		else {
+			loseOperation();
+		}
+	}
+
+	   public void loseOperation(){
+	// have sound Controller play sadSound
+		   soundController.playSadSound();
+	 }
+
 	
-//	create new coinSlot;
-//	create new manualActivator
-//	create new CoinReturn
-//	create new soundController;
-//	create new CoinLiberator;
-//	create new static random number generator
-//  static final int MaxPot = 4
-//  static final int EmptyPot = 0
-//	let coinsInPot be EmptyPot;
-//	let randomNum be -1;
-//
-//	     StartSlotMachine{
-//	while forever...
-//		checkManualActivatorPressed()
-//		checkCoinReturnPressed()
-//	     }
-//
-//	 synchronized   checkManualActivatorPressed(){
-//	        	Create a new button event with the slotMachine as the source
-//	if the manual activator has been pressed,
-//			fire the manualActivator’s buttonPressed event
-//	    }
-//
-//
-//	synchronized checkCoinReturnPressed(){
-//	        Create a new button event with the slotMachine as the source
-//		if the coin return has been pressed
-//			fire the CoinReturn’s buttonPressed event
-//	    }
-//
-//		
-//
-//	startTurn(){
-//	increase coinsInPot by 1;
-//	if coinsInPot greater than MaxPot…
-//		winOperation();
-//
-//	else if coinsInPot less than or equal to MaxPot
-//	gamble()
-//	}
-//		
-//		public void gamble{
-//		
-//	generate randomNum between 0-9
-//	if randomNum is 0 or 9…
-//	winOperation();
-//	else if randomNum is not 0 or 9…
-//		loseOperation();
-//		
-//		}
-//		
-//	loseOperation(){
-//			have sound Controller play sadSound
-//	}
-//
-//
-//	winOperation(){
-//			have CoinLiberator  releaseCoins();
-//		tell the sound controller to play fanfare
-//		display “JackPot” and coinsInPot
-//			let coinsInPot be EmptyPot;
-//		}
-//
-//
-//	returnCoin(){
-//      tell the CoinSlot to return the coin
-//  }
+	   public void winOperation(){
+	// have CoinLiberator releaseCoins();
+		   coinLiberator.releaseCoins();
+	// tell the sound controller to play fanfare
+		   soundController.playFanfare();
+	// display “JackPot” and coinsInPot
+		   displayController.displayMessage("JackPot!!!")
+	// let coinsInPot be EmptyPot;
+		   coinsInPot = EMPTYPOT;
+	 }
+	
+	   public void returnCoin(){
+	// tell the CoinSlot to return the coin
+		   coinSlot.ejectCoin();
+	 }
 
 }
