@@ -38,23 +38,23 @@ public class SlotMachine {
 	}
 
 	public synchronized void checkManualActivatorPressed() {
-		// Create a new button event with the slotMachine as the source
-		ButtonEvent theEvent = new ButtonEvent(this);
 		// if the manual activator has been pressed,
 		if (buttonController.manualActivatorPressed()) {
+			// Create a new button event with the slotMachine as the source
+			ButtonEvent theEvent = new ButtonEvent(this);
 			// fire the manualActivator’s buttonPressed event
 			manualActivator.buttonPressed(theEvent);
 		}
 	}
 
 	public synchronized void checkCoinReturnPressed() {
-		// Create a new button event with the slotMachine as the source
-		ButtonEvent theEvent = new ButtonEvent(this);
 		// if the coin return has been pressed
 		if (buttonController.coinReturnButtonPressed()) {
+			// Create a new button event with the slotMachine as the source
+			ButtonEvent theEvent = new ButtonEvent(this);
+			// fire the CoinReturn’s buttonPressed event
 			coinReturner.buttonPressed(theEvent);
 		}
-		// fire the CoinReturn’s buttonPressed event
 	}
 
 	public synchronized void startTurn() {
@@ -63,7 +63,6 @@ public class SlotMachine {
 		coinSlot.eatCoin();
 		// if coinsInPot greater than MaxPot…
 		if (coinsInPot > MAXPOT) {
-			System.out.println("Broken if statement");
 			winOperation();
 		}
 		// else if coinsInPot less than or equal to MaxPot

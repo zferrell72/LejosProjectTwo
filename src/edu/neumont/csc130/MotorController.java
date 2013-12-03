@@ -7,7 +7,7 @@ public class MotorController {
 
 	private NXTMotor coinSlotMotor;
 	private NXTMotor doorMotor;
-	private final int insertPower = 40;
+	private final int insertPower = 50;
 	private final int returnPower = 100;
 	private final int doorPower = 20;
 
@@ -20,7 +20,7 @@ public class MotorController {
 		coinSlotMotor.setPower(insertPower);
 		coinSlotMotor.forward();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

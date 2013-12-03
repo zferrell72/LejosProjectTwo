@@ -18,7 +18,7 @@ public class CoinSlot {
 
 	public boolean hasCoin(){
 //		return if the sensor detects a coin in the CoinSlot
-		return (sensor.readValue() < sensor.getHigh());
+		return (sensor.readValue() < sensor.getHigh() * .95);
 	}
 
 	public void ejectCoin(){
